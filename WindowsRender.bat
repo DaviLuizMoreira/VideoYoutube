@@ -1,4 +1,28 @@
 @echo off
-color 4f
-msg * ALERTA: Um vírus foi detectado no sistema!
-shutdown /r /t 15 /c "Vírus detectado. O sistema precisa reiniciar para tentar conter a ameaça."
+setlocal
+set file=%temp%\mensagem_morse.txt
+
+(
+echo . / .- / ..- -. .. .- --- / ..-. .-.. .- ... -.-. --- / -- .- -. --- / . / ... . -- / -.-. .- ---
+echo.
+echo -... .- - . -. -.. --- / .--. ..- -. .... . - .- / -.-. --- -- / .--. .- ..- / -. --- / ...- . -. - .. .-.. .- -.. --- .-.
+echo.
+echo . / ... . / . ... ... .- / -- .. -. .- / ..-. .- .-.. .- / -- . .-. -.. .- / ...- .- .. / ..-. .. -.-. .- .-. / ... . -- / -.-. .- -... . .-.. ---
+echo.
+echo ...- --- ..- / .-. .- ... .--. .- .-. / .- / -.-. .- -... . -.-. .- / -.. . .-.. .- / ... . -- / ..- ... .- .-. / -... .- .-. -... . .- -.. --- .-.
+echo.
+echo . / .- / ..- -. .. .- --- / ..-. .-.. .- ... -.-. --- / -.-. .- -- . .-. .- / .--. .-. .. ...- .
+echo.
+echo - -.-. / .-. . ... .--. --- -. -.. . / --- / -.-. .... .- - / . -. --.- ..- .- -. - --- / . ..- / -- . - ---
+echo.
+echo . / .- / ..- -. .. .- --- / ..-. .-.. .- ... -.-. ---
+) > "%file%"
+
+:loop
+start "" notepad "%file%"
+
+:wait
+timeout /t 1 >nul
+tasklist | find /i "notepad.exe" >nul
+if %errorlevel%==0 goto wait
+goto loop
